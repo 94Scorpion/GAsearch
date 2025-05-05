@@ -37,7 +37,7 @@ function getWeather(city) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                throw new Error("Città non trovata");
+                throw new Error("Città non trovata o errore nella richiesta.");
             }
             return response.json();
         })
@@ -67,7 +67,7 @@ function getTime(city) {
         .then(zones => {
             const match = zones.find(zone => zone.toLowerCase().includes(cityFormatted));
             if (!match) {
-                throw new Error("Città non trovata");
+                throw new Error("Città non trovata.");
             }
 
             return fetch(`https://worldtimeapi.org/api/timezone/${match}`);
