@@ -1,4 +1,4 @@
-const apiKey = "aa355e7344336bcb5d82bb5f20e4ed6f";
+const apiKey = "f895b17c966d9d85d70298d1320b1d0f";
 
 function search() {
     const query = document.getElementById('search').value.trim();
@@ -23,7 +23,6 @@ function search() {
         results.innerHTML = `Hai cercato: <strong>${query}</strong><br>Funzionalità avanzate in arrivo!`;
     }
 }
-
 
 function getWeather(city) {
     const results = document.getElementById('results');
