@@ -19,6 +19,10 @@ function search() {
             .replace("ora ", "")
             .trim();
         getTime(city);
+    } else if (query.toLowerCase() === "citazione") {
+        getQuote();  // Chiamata alla funzione getQuote
+    } else if (query.toLowerCase() === "notizie") {
+        getNews();  // Chiamata alla funzione getNews
     } else {
         results.innerHTML = `Hai cercato: <strong>${query}</strong><br>Funzionalità avanzate in arrivo!`;
     }
@@ -75,5 +79,51 @@ function getTime(city) {
         })
         .catch(err => {
             results.innerHTML = `Errore: ${err.message}`;
+        });
+}
+
+function getQuote() {
+    const results = document.getElementById('results');
+    
+    // Mostra un messaggio di caricamento
+    results.innerHTML = "Caricamento citazione...";
+
+    // Chiamata API per ottenere una citazione casuale
+    fetch('https://api.quotable.io/random')
+        .then(response => response.json())
+        .then(data => {
+            results.innerHTML = `
+                <h3>Citazione casuale:</h3>
+                <p>"${data.content}" - <strong>${data.author}</strong></p>
+            `;
+        })
+        .catch(error => {
+            results.innerHTML = `Errore: ${error.message}`;
+        });
+}
+
+function getNews() {
+    const results = document.getElementById('results');
+    const apiKey = "950cc227a4f94eca98d60ae0c70a756c";  // La tua chiave API di News API
+
+    // Mostra un messaggio di caricamento
+    results.innerHTML = "Caricamento notizie...";
+
+    fetch(`https://newsapi.org/v2/top-headlines?country=it&apiKey=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.articles && data.articles.length > 0) {
+                let newsHTML = `<h3>Ultime Notizie</h3><ul>`;
+                data.articles.forEach(article => {
+                    newsHTML += `<li><a href="${article.url}" target="_blank">${article.title}</a></li>`;
+                });
+                newsHTML += `</ul>`;
+                results.innerHTML = newsHTML;
+            } else {
+                results.innerHTML = "Nessuna notizia disponibile.";
+            }
+        })
+        .catch(error => {
+            results.innerHTML = `Errore: ${error.message}`;
         });
 }
