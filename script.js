@@ -4,6 +4,7 @@ function search() {
     const query = document.getElementById('search').value.trim();
     const results = document.getElementById('results');
 
+    // Confronto della query in minuscolo per garantire che venga riconosciuto indipendentemente da maiuscole/minuscole
     if (query.toLowerCase().startsWith("meteo ")) {
         const city = query.slice(6).trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         getWeather(city);
@@ -20,9 +21,9 @@ function search() {
             .trim();
         getTime(city);
     } else if (query.toLowerCase() === "citazione") {
-        getQuote();  // Chiamata alla funzione getQuote
+        getQuote();  // Chiamata alla funzione getQuote per le citazioni
     } else if (query.toLowerCase() === "notizie") {
-        getNews();  // Chiamata alla funzione getNews
+        getNews();  // Chiamata alla funzione getNews per le notizie
     } else {
         results.innerHTML = `Hai cercato: <strong>${query}</strong><br>Funzionalità avanzate in arrivo!`;
     }
